@@ -18,6 +18,16 @@ def destroy():
     session.clear()
     return redirect("/")
 
+@app.route('/2x')
+def double():
+
+    if 'count' in session:
+        session['count']+=1
+        session['count']+=1
+    else:
+        session['count'] = 0
+    return render_template("index.html")
+
 
 
 

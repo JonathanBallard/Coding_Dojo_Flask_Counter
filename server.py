@@ -4,7 +4,14 @@ app.secret_key = 'keep it secret, keep it safe' # set a secret key for security 
 # our index route will handle rendering our form
 @app.route('/')
 def index():
-
+    if 'amount' in session:
+        pass
+    else:
+        if request.form.get('amount'):
+            session['amount'] = request.form['amount']
+        else:
+            session['amount'] = 1
+    
     if 'count' in session:
         session['count']+=1
     else:
@@ -23,10 +30,17 @@ def double():
 
     if 'count' in session:
         session['count']+=1
-        session['count']+=1
     else:
         session['count'] = 0
-    return render_template("index.html")
+    return redirect("/")
+
+
+@app.route('/x', methods=['POST'])
+def amountRoute():
+    amt = int(request.form['amount'])
+    session['count'] += amt - 1
+    
+    return redirect("/")
 
 
 

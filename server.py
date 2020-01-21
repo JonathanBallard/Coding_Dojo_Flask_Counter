@@ -4,6 +4,11 @@ app.secret_key = 'keep it secret, keep it safe' # set a secret key for security 
 # our index route will handle rendering our form
 @app.route('/')
 def index():
+    if 'visit' in session:
+        session['visit'] += 1
+    else:
+        session['visit'] = 1
+
     if 'amount' in session:
         pass
     else:
